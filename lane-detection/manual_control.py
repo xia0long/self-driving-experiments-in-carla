@@ -121,9 +121,6 @@ try:
 except ImportError:
     raise RuntimeError('cannot import numpy, make sure numpy package is installed')
 
-
-# from lane_detection import drawLanesPipeline
-# from lane_detect import LaneDetect
 from lane_detection import LaneDetect
 lane_detecter = LaneDetect() 
 # ==============================================================================
@@ -947,7 +944,8 @@ class CameraManager(object):
             array = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
             array = np.reshape(array, (image.height, image.width, 4))
             array = array[:, :, :3]
-            # array = lane_detect(array)
+            
+            # add lane mark to image
             array = lane_detecter.image_with_lane_mark(array)
 
             array = array[:, :, ::-1]
