@@ -5,8 +5,6 @@ import cv2
 import pygame
 import numpy as np
 
-import sys
-sys.path.append("carla-0.9.10-py3.7-linux-x86_64.egg")
 import carla
 
 from client_bounding_boxes import ClientSideBoundingBoxes
@@ -35,8 +33,9 @@ class CarlaClient:
         try:
             pygame.init()
             self.client = carla.Client('127.0.0.1', 2000)
-            self.client.set_timeout(5.0)
+            self.client.set_timeout(12.0)
             self.world = self.client.get_world()
+            self.world = self.client.load_world('Town02')
             self.display = pygame.display.set_mode((VIEW_WIDTH, VIEW_HEIGHT))
         except Exception as e:
             print(e)
